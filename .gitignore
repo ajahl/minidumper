@@ -1,0 +1,6 @@
+.env
+.ccache
+.bazel-cache
+.bazel-cache-repo
+.DS_Store
+dumps

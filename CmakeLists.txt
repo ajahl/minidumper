@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 3.7.2)
+PROJECT(MiniDumper)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++ -lpthreads -fuse-ld=gold -g -Wall")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DSENTRY_ENABLED=1")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -DSENTRY_ENABLED=1")
+set(BUILD_SHARED_LIBS on)
+
+add_subdirectory(sentry-native)
+
+add_library(MINI_DUMPER minidumper.cpp)
+
+find_library(SENTRY_LIBRARY NAMES sentry)
+
+target_link_libraries(MINI_DUMPER ${SENTRY_LIBRARY})
+
+target_include_directories(MINI_DUMPER PUBLIC
+"${PROJECT_BINARY_DIR}"
+"${PROJECT_SOURCE_DIR}"
+)
+
+add_executable(minidumper ${PROJECT_SOURCE_DIR}/minidumper.cpp)

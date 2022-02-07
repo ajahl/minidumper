@@ -1,0 +1,10 @@
+startup --output_base=/tmp/bazel
+
+build --disk_cache=/home/vagrant/minidumper/.bazel-cache
+common --repository_cache=/home/vagrant/minidumper/.bazel-cache-repo
+common --sandbox_writable_path=/home/vagrant/minidumper/.ccache
+
+build --strategy=CppCompile=standalone
+
+build --cxxopt=-std=c++14 --compilation_mode=dbg --strip=never --copt=-O3 
+build --linkopt=-fuse-ld=lld #"--ld-generated-unwind-info"# -fuse-ld=lld --linkopt=-fuse-ld=lld

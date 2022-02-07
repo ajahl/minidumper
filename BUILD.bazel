@@ -1,0 +1,16 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+cc_binary(
+  name = "minidumper",
+  srcs = ["src/minidumper.cpp"],
+  copts = [
+            "-DSENTRY_ENABLED",
+            "-DSENTRY_BUILD_STATIC",
+            "-D__STDC_FORMAT_MACROS",
+        ],
+  linkopts = ["-lpthread", "-g", "-Wall", "-fuse-ld=lld", "-ggdb", "-gdwarf"],
+  deps = [
+    "@sentry_native//:sentry",
+    "@breakpad//:breakpad",
+  ],
+)

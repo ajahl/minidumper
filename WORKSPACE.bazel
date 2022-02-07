@@ -1,0 +1,34 @@
+   
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "new_git_repository")  
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive") 
+   
+http_archive(
+    name = "sentry_native",
+    build_file = "//bazel:sentry_native.BUILD",
+    sha256 = "85e0e15d7fb51388d967ab09e7ee1b95f82330a469a93c65d964ea1afd5e6127",
+    url = "https://github.com/getsentry/sentry-native/releases/download/0.4.13/sentry-native.zip",
+)
+
+new_git_repository(
+    name = "lss",
+    build_file = "//bazel:lss.BUILD",
+    commit = "e6527b0cd469e3ff5764785dadcb39bf7d787154",
+    remote = "https://chromium.googlesource.com/linux-syscall-support",
+    shallow_since = "1508355462 +0000",
+)
+
+new_git_repository(
+    name = "breakpad",
+    build_file = "//bazel:breakpad.BUILD",
+    commit = "08bd844599bf04c71707e8f59a8013a941264695",
+    remote = "https://github.com/google/breakpad.git",
+    shallow_since = "1643417460 +0000",
+)
+
+# http_archive(
+#     name = "breakpad",
+#     build_file = ":breakpad.BUILD",
+#     url = "https://chromium.googlesource.com/breakpad/breakpad/+archive/a61afe7a3e865f1da7ff7185184fe23977c2adca.tar.gz",
+#     sha256 = "fdf65a65e011de41680d3d7f5e8516675022786b9d9c8bf20a88bc9a2e0f3bc1"
+# )
+
